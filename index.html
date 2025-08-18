@@ -8,242 +8,216 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
         
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background: linear-gradient(-45deg, #f5f5f5, #fafafa, #f8f9fa, #f5f5f5, #fafafa, #f8f9fa);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
-            min-height: 100vh;
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .theme-card {
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255,255,255,0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-        
-        .theme-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            transition: left 0.8s ease;
-        }
-        
-        .theme-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: rotate 8s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .theme-card:hover::before {
-            left: 100%;
-        }
-        
-        .theme-card:hover::after {
-            opacity: 1;
-        }
-        
-        .theme-card:hover {
-            transform: translateY(-20px) rotateX(5deg) rotateY(5deg) scale(1.05);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 0 50px rgba(255,255,255,0.3);
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .icon-container {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            animation: iconFloat 3s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .icon-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s ease-in-out infinite;
-        }
-        
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-        
-        .page-transition {
-            animation: pageSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        @keyframes pageSlideIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(50px) scale(0.95);
-                filter: blur(10px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1);
-                filter: blur(0px);
-            }
-        }
-        
-        .subtopic-item {
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255,255,255,0.3);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-        
-        .subtopic-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.6s ease;
-        }
-        
-        .subtopic-item:hover::before {
-            left: 100%;
-        }
-        
-        .subtopic-item:hover {
-            transform: translateY(-8px) rotateX(2deg) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 30px rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.5);
-        }
-        
-        .back-btn {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(156,163,175,0.3);
-            border-radius: 50px;
-            padding: 12px 24px;
-        }
-        
-        .back-btn:hover {
-            transform: translateX(-8px) scale(1.05);
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
+        /* ==================== 頁面整體樣式 ==================== */
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    min-height: 100vh;
+    /* 背景漸變與動畫 */
+    background: linear-gradient(-45deg, #f5f5f5, #fafafa, #f8f9fa, #f5f5f5, #fafafa, #f8f9fa);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+}
 
-        .content-page {
-            min-height: 80vh;
-        }
+/* ==================== 動畫關鍵影格 ==================== */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-        .content-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255,255,255,0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .content-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: rotate 12s linear infinite;
-            opacity: 0.5;
-        }
-        
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: rgba(59,130,246,0.3);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
-            50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #1e40af, #3b82f6, #2563eb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientTextShift 3s ease-in-out infinite;
-        }
-        
-        @keyframes gradientTextShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .interactive-hover {
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .interactive-hover:hover {
-            transform: scale(1.1) rotate(5deg);
-            filter: brightness(1.2);
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-        }
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pageSlideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(50px) scale(0.95);
+        filter: blur(10px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+@keyframes gradientTextShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ==================== 主題卡片樣式 ==================== */
+.theme-card {
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.theme-card::before {
+    display: none;
+}
+
+.theme-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: rotate 8s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.theme-card:hover::before {
+    left: 100%;
+}
+
+.theme-card:hover::after {
+    opacity: 1;
+}
+
+.theme-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 0 50px rgba(255,255,255,0.3);
+}
+
+/* ==================== 子主題項目樣式 ==================== */
+.subtopic-item {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.subtopic-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.subtopic-item:hover::before {
+    left: 100%;
+}
+
+.subtopic-item:hover {
+    transform: translateY(-8px) rotateX(2deg) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 30px rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+}
+
+/* ==================== 按鈕與過渡效果 ==================== */
+.back-btn {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(156,163,175,0.3);
+    border-radius: 50px;
+    padding: 12px 24px;
+}
+
+.back-btn:hover {
+    transform: translateX(-8px) scale(1.05);
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.page-transition {
+    animation: pageSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.interactive-hover {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.interactive-hover:hover {
+    transform: none !important;
+    filter: none !important;
+}
+
+/* ==================== 內容頁與文字樣式 ==================== */
+.content-page {
+    min-height: 80vh;
+}
+
+.content-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: rotate 12s linear infinite;
+    opacity: 0.5;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #1e40af, #3b82f6, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientTextShift 3s ease-in-out infinite;
+}
+
+/* ==================== 特定元件樣式與動畫取消 ==================== */
+.icon-container {
+    background: linear-gradient(135deg, #97a1be, #a0a4c8);
+    animation: none !important;
+    transform: none !important;
+}
+
+.icon-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: none !important;
+    animation: none !important;
+}
+
+/* 取消漂浮粒子動畫 */
+.floating-particles,
+.particle {
+    animation: none !important;
+}
+
+/* 取消呼吸動畫 */
+.pulse-animation {
+    animation: none !important;
+}
+
+.pulse-animation {
+    animation: none !important;
+}
     </style>
 </head>
 <body class="min-h-screen">
@@ -359,13 +333,13 @@
             </button>
             
             <div class="text-center mb-12">
-                <h1 class="text-4xl font-bold text-gray-800 mb-4">BOM（物料明細表）</h1>
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">BOM</h1>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 <div class="subtopic-item bg-white/90 rounded-xl p-6 text-blue-800 shadow-lg border border-blue-100" onclick="showSubtopicPage('bom-description')">
-                    <h3 class="text-2xl font-semibold mb-4">📋 BOM（物料清單）說明</h3>
-                    <p class="text-gray-700 leading-relaxed">物料清單是製造業的核心文件，詳細記錄產品所需的所有原材料、零組件及其數量關係，是生產計劃與成本控制的重要依據。</p>
+                    <h3 class="text-2xl font-semibold mb-4">📋 BOM（物料明細表）說明</h3>
+                    <p class="text-gray-700 leading-relaxed">物料明細表是製造業的核心文件，詳細記錄產品所需的所有原材料、零組件及其數量關係，是生產計劃與成本控制的重要依據。</p>
                     <div class="flex items-center text-blue-600 font-medium group mt-4">
                         <span>查看詳細內容</span>
                         <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -440,7 +414,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                             </svg>
                         </div>
-                        <h1 class="text-4xl font-bold text-gray-800 mb-4">📋 BOM（物料清單）說明</h1>
+                        <h1 class="text-4xl font-bold text-gray-800 mb-4">📋 BOM（物料明細表）說明</h1>
                     </div>
                     
                     <div class="prose prose-lg max-w-none">
@@ -517,7 +491,7 @@
                                     <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-2">
                                         <span class="text-2xl">💰</span>
                                     </div>
-                                    <h4 class="font-semibold text-gray-800 mb-1">會計</h4>
+                                    <h4 class="font-semibold text-gray-800 mb-1">PM</h4>
                                     <p class="text-sm text-gray-600">計算成本</p>
                                 </div>
                                 <div class="text-center">
@@ -569,7 +543,7 @@
                                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
                                         <span class="text-2xl">⚡</span>
                                     </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">EE電子模組</h3>
+                                    <h3 class="text-xl font-semibold text-gray-800">電子模組EE</h3>
                                 </div>
                                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-sm text-gray-600">
                                     <div>• 00 電路板PCB裸版</div>
@@ -599,8 +573,8 @@
                                     <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
                                         <span class="text-2xl">🔌</span>
                                     </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">EM機電件</h3>
-                                    <span class="ml-2 text-sm text-gray-500">(ex:現材、遙控器)</span>
+                                    <h3 class="text-xl font-semibold text-gray-800">機電件EM</h3>
+                                    <span class="ml-2 text-sm text-gray-500">(ex:線材、遙控器)</span>
                                 </div>
                                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-sm text-gray-600">
                                     <div>• 42 電線組裝</div>
@@ -620,7 +594,7 @@
                                     <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
                                         <span class="text-2xl">🔧</span>
                                     </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">ME機構模組</h3>
+                                    <h3 class="text-xl font-semibold text-gray-800">機構模組ME</h3>
                                     <span class="ml-2 text-sm text-gray-500">(ex:一般塑膠、橡膠、金屬件的機構材料)</span>
                                 </div>
                                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-sm text-gray-600">
@@ -648,7 +622,7 @@
                                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
                                         <span class="text-2xl">🔍</span>
                                     </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">SB光學元件</h3>
+                                    <h3 class="text-xl font-semibold text-gray-800">光學元件SB</h3>
                                 </div>
                                 <div class="flex flex-col gap-3 text-sm text-gray-600">
                                     <div>• 23 光學元件(Lamp)</div>
@@ -664,7 +638,7 @@
                                     <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
                                         <span class="text-2xl">📋</span>
                                     </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">Others未被分類的物料</h3>
+                                    <h3 class="text-xl font-semibold text-gray-800">未被分類的物料Others</h3>
                                 </div>
                                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-sm text-gray-600">
                                     <div>• 29 膜材</div>
@@ -675,7 +649,7 @@
                                     <div>• 34 冷陰極管反射片</div>
                                     <div>• 37 磁片</div>
                                     <div>• 38 授權標籤</div>
-                                    <div>• 40 軟體(燒錄程式)</div>
+                                    <div>• 39 軟體(燒錄程式)</div>
                                     <div>• 70 半成品</div>
                                 </div>
                             </div>
@@ -829,7 +803,12 @@
                                 BOM表是記錄產品結構的標準化表格，每個欄位都有其特定的意義和填寫規範。以下將詳細說明各個欄位的定義、用途及填寫要求。
                             </p>
                         </div>
-                        
+
+                      <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-6">🏷️ 欄位表</h3>
+                            <img src="BOM表.png" alt="欄位表圖片說明" class="w-full rounded" />
+                        </div>  
+
                         <div class="space-y-6">
                             <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
                                 <div class="flex items-center mb-4">
@@ -1476,7 +1455,7 @@
                                     <div id="c2-content" class="hidden border-t border-gray-200 p-4 bg-gray-50">
                                         <div class="space-y-4">
                                             <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                                                <h5 class="font-semibold text-yellow-700 mb-2">📋 階段目標</h5>
+                                                <h5 class="font-semibold text-yellow-700 mb-2">📋 流程目的</h5>
                                                 <p class="text-sm text-gray-700">依C1功能/規格/成本分析，規劃電路並製作"mock-up"樣品。</p>
                                             </div>
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1630,7 +1609,7 @@
                                     <div id="c3-content" class="hidden border-t border-gray-200 p-4 bg-gray-50">
                                         <div class="space-y-4">
                                             <div class="bg-red-50 p-4 rounded-lg border border-red-200">
-                                                <h5 class="font-semibold text-red-700 mb-2">📋 階段目標</h5>
+                                                <h5 class="font-semibold text-red-700 mb-2">📋 流程目的</h5>
                                                 <p class="text-sm text-gray-700">C2檢討OK後，針對模具品由R&D製作工程驗證樣品，供驗證產品是否符合工程規格用。</p>
                                             </div>
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1842,7 +1821,7 @@
                                     <div id="c4-content" class="hidden border-t border-gray-200 p-4 bg-gray-50">
                                         <div class="space-y-4">
                                             <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                                                <h5 class="font-semibold text-purple-700 mb-2">📋 階段目標</h5>
+                                                <h5 class="font-semibold text-purple-700 mb-2">📋 流程目的</h5>
                                                 <p class="text-sm text-gray-700">針對模具品加以量試，以驗證產品是否符合產品規格(外觀可不必咬花)。</p>
                                             </div>
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -2092,7 +2071,7 @@
                                     <div id="c5-content" class="hidden border-t border-gray-200 p-4 bg-gray-50">
                                         <div class="space-y-4">
                                             <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-                                                <h5 class="font-semibold text-indigo-700 mb-2">📋 階段目標</h5>
+                                                <h5 class="font-semibold text-indigo-700 mb-2">📋 流程目的</h5>
                                                 <p class="text-sm text-gray-700">依DVT設計驗證問題點檢討改善後再作大量試產，確認量產製程。</p>
                                             </div>
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -2235,7 +2214,7 @@
                                     <div id="c6-content" class="hidden border-t border-gray-200 p-4 bg-gray-50">
                                         <div class="space-y-4">
                                             <div class="bg-teal-50 p-4 rounded-lg border border-teal-200">
-                                                <h5 class="font-semibold text-teal-700 mb-2">📋 階段目標</h5>
+                                                <h5 class="font-semibold text-teal-700 mb-2">📋 流程目的</h5>
                                                 <p class="text-sm text-gray-700">依照公司正常生產流程(參考工廠生產流程管制辦法)運作,但在停產(Phase out)前須由M-PM(Material Project manager,由產銷處指派)召集採購/生管/製造/客服,參照“材(物)料E.O.L作業程序(G08-3017)”,依進度處理庫存舊材料/成品。</p>
                                             </div>
                                             <div class="bg-white rounded-lg p-4 border border-gray-300">
@@ -2787,8 +2766,8 @@
                         <div class="flex items-start">
                             <span class="text-2xl mr-3">🏢</span>
                             <div>
-                                <h4 class="font-semibold text-yellow-700">商業應用</h4>
-                                <p class="text-xs text-gray-600">會議室簡報、培訓教學</p>
+                                <h4 class="font-semibold text-yellow-700">家庭娛樂</h4>
+                                <p class="text-xs text-gray-600">家庭劇院、遊戲體驗</p>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -2801,8 +2780,15 @@
                         <div class="flex items-start">
                             <span class="text-2xl mr-3">🏠</span>
                             <div>
-                                <h4 class="font-semibold text-yellow-700">家庭娛樂</h4>
-                                <p class="text-xs text-gray-600">家庭劇院、遊戲體驗</p>
+                                <h4 class="font-semibold text-yellow-700">商業應用</h4>
+                                <p class="text-xs text-gray-600">會議室簡報、培訓教學</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-2xl mr-3">🏕️</span>
+                            <div>
+                                <h4 class="font-semibold text-yellow-700">戶外投影</h4>
+                                <p class="text-xs text-gray-600">戶外露營、郊遊</p>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -2911,12 +2897,7 @@
                         <div id="projector-internal-intro" class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm hidden">
                             <div class="flex items-center justify-between mb-6">
                                 <h3 class="text-xl font-semibold text-gray-800">⚙️ 投影機內部結構</h3>
-                                <button onclick="showExternalViewIntro()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors duration-300 flex items-center">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                                    </svg>
-                                    返回外部圖
-                                </button>
+                                
                             </div>
                             
                             <div class="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg p-8">
@@ -3171,7 +3152,7 @@
                                     <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
                                         <span class="text-2xl">🔧</span>
                                     </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">鏡頭位移 vs 梯形校正</h3>
+                                    <h3 class="text-xl font-semibold text-gray-800">鏡頭位移(Tilt-shift) vs 梯形校正(Keystone Correction)</h3>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
@@ -3688,18 +3669,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-                                <div class="flex items-center mb-4">
-                                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
-                                        <span class="text-2xl">👓</span>
-                                    </div>
-                                    <h3 class="text-xl font-semibold text-gray-800">穿戴式顯示光學模組</h3>
-                                </div>
-                                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                            <p class="text-sm text-gray-500 italic">目前無相關產品</p>
-                                        </div>
-                                    </div>
-                                </div>
 
                             <!-- 嵌入式投影系統 -->
                             <div class="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
@@ -3913,7 +3882,7 @@ function showInternalView() {
 }
 
 function showExternalViewIntro() {
-    const externalDiv = document.getElementById('projector-external');
+    const externalDiv = document.getElementById('projector-external');  
     const internalDiv = document.getElementById('projector-internal-intro');
     const moduleInfo = document.getElementById('module-info-intro');
     
@@ -3924,7 +3893,10 @@ function showExternalViewIntro() {
 
     if (moduleInfo) {
         moduleInfo.classList.add('hidden');
+
+        console.log('showExternalViewIntro fired');
     }
+    window.showExternalViewIntro = showExternalViewIntro;
 }
         
         function showModuleInfoIntro(moduleType) {
@@ -3935,7 +3907,7 @@ function showExternalViewIntro() {
                 'light-source': {
                     title: '💡 光源模組',
                     content: `
-<h3 class="text-xl font-semibold text-yellow-800 mb-4">光學OE-光源模組 (Light Source Module)</h3>                    
+<h3 class="text-xl font-semibold text-yellow-800 mb-4">光學OE-光源模組</h3>                    
 <div class="mb-8 text-sm text-gray-700">
   <h3 class="text-lg font-semibold text-gray-700 mb-2">燈泡（傳統燈泡）</h3>
   <ul class="list-disc list-inside space-y-1">
@@ -4092,7 +4064,7 @@ function showExternalViewIntro() {
                 'electronic-module': {
                     title: '🔌 電子模組&軟體模組',
                     content: `
-<h3 class="text-xl font-semibold text-green-800 mb-3">電子模組 (Electronic Module, EE)</h3>
+<h3 class="text-xl font-semibold text-green-800 mb-3">電子模組 EE</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
         <h4 class="font-semibold text-gray-700 mb-2">主機板（核心控制）</h4>
@@ -4129,7 +4101,7 @@ function showExternalViewIntro() {
   </div>
 </div>
 
-<h3 class="text-xl font-semibold text-green-800 mb-4 mt-12">軟體模組 (Software Module, SW)</h3>
+<h3 class="text-xl font-semibold text-green-800 mb-4 mt-12">軟體模組 SW</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
         <ul class="space-y-1 text-sm text-gray-600">
@@ -4144,7 +4116,7 @@ function showExternalViewIntro() {
                 'thermal-module': {
                     title: '🌡️ 熱傳模組',
                     content: `
-                        <h3 class="text-xl font-semibold text-red-800 mb-4">熱傳模組 (Thermal Module, TM)</h3>
+                        <h3 class="text-xl font-semibold text-red-800 mb-4">熱傳模組 TM</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <h4 class="font-semibold text-gray-700 mb-2">散熱組件</h4>
@@ -4188,5 +4160,7 @@ function showExternalViewIntro() {
                 icon.style.transform = 'rotate(0deg)';
             }
         }
+
+
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b38a0e5257b30a',t:'MTc1NDUzNTc5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
